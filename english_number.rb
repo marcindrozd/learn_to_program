@@ -32,6 +32,19 @@ def englishNumber number
 
 	left = number
 
+	write = left / 1000000000 # How many billions left to write out?
+	left = left - write * 1000000000 # Subtract off those millions.
+
+	if write > 0
+		# Using recurrence to call back the original method
+		billions = englishNumber write
+		numString = numString + billions + " billion"
+		if left > 0
+			# So we don't write two billionfifty-one"
+			numString = numString + " "
+		end
+	end
+
 	write = left / 1000000 # How many millions left to write out?
 	left = left - write * 1000000 # Subtract off those millions.
 
