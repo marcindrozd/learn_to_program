@@ -7,6 +7,10 @@
 # So it should return 'one thousand' instead of 'ten hundred' and 'ten thousand' 
 # instead of 'one hundred hundred'.
 
+# Expand upon englishNumber some more. Now put in millions, so you get 'one million' 
+# instead of 'one thousand thousand'. Then try adding billions and trillions. 
+# How high can you go?
+
 def englishNumber number
 	if number < 0 # No negative numbers.
 		return "Please enter a number that isn't negative."
@@ -27,6 +31,20 @@ def englishNumber number
 	# "write" is the part we are writing out right now.
 
 	left = number
+
+	write = left / 1000000 # How many millions left to write out?
+	left = left - write * 1000000 # Subtract off those millions.
+
+	if write > 0
+		# Using recurrence to call back the original method
+		millions = englishNumber write
+		numString = numString + millions + " million"
+		if left > 0
+			# So we don't write 'two millionfifty-one'
+			numString = numString + " "
+		end
+	end
+
 	write = left / 1000 # How many thousands left to write out?
 	left = left - write * 1000 # Subtract off those thousands.
 
@@ -103,6 +121,12 @@ puts englishNumber(234)
 puts englishNumber(3211)
 puts englishNumber(15423)
 puts englishNumber(999999)
+puts englishNumber(1999999)
+puts englishNumber(112300000)
+puts englishNumber(345678234)
+puts englishNumber(5678139028)
+puts englishNumber(28542016492)
 puts englishNumber(1000000000000)
+
 
 
