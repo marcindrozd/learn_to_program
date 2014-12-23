@@ -6,7 +6,15 @@
 # that when we interact with our dragon, just like you can't ask a human baby, 
 # "Are you hungry?". We'll also add a few other fun ways we can interact 
 # with our baby dragon, and when he is born we'll give him a name. 
-# (Whatever you pass into the  new method is passed into the initialize method for you.) 
+# (Whatever you pass into the  new method is passed into the initialize method for you.)
+
+# Write a program so that you can interact with your baby dragon. 
+# You should be able to enter commands like  feed and walk, 
+# and have those methods be called on your dragon. 
+# Of course, since what you are inputting are just strings, 
+# you will have to have some sort of method dispatch, 
+# where your program checks which string was entered, 
+# and then calls the appropriate method.
 
 class Dragon
 	def initialize name
@@ -17,6 +25,27 @@ class Dragon
 
 		puts @name + " is born."
 	end
+
+	def start
+		while true
+			puts "#{@name} is looking at you. What are you going to do?"
+			command = gets.chomp
+			distributor(command)
+		end
+	end
+
+	def distributor(command)
+		case command.downcase
+			when "feed" then feed
+			when "walk" then walk
+			when "put to bed" then putToBed
+			when "toss" then toss
+			when "rock" then rock
+			else puts "I don't know what to do. Try something else."
+		end
+	end
+
+	private
 
 	def feed
 		puts "You feed " + @name + "."
@@ -64,8 +93,6 @@ class Dragon
 		end
 	end
 
-	private
-
 	def hungry?
 		@stuffInBelly <= 2
 	end
@@ -112,12 +139,4 @@ class Dragon
 end
 
 pet = Dragon.new "Norbert"
-pet.feed
-pet.toss
-pet.walk
-pet.putToBed
-pet.rock
-pet.putToBed
-pet.putToBed
-pet.putToBed
-pet.putToBed
+pet.start
