@@ -1,3 +1,12 @@
+# I think another example method would be helpful here. 
+# We'll call this one englishNumber. It will take a number, like 22, 
+# and return the english version of it (in this case, the string 'twenty-two'). 
+# For now, let's have it only work on integers from 0 to 100.
+
+# Expand upon englishNumber. First, put in thousands. 
+# So it should return 'one thousand' instead of 'ten hundred' and 'ten thousand' 
+# instead of 'one hundred hundred'.
+
 def englishNumber number
 	if number < 0 # No negative numbers.
 		return "Please enter a number that isn't negative."
@@ -18,6 +27,19 @@ def englishNumber number
 	# "write" is the part we are writing out right now.
 
 	left = number
+	write = left / 1000 # How many thousands left to write out?
+	left = left - write * 1000 # Subtract off those thousands.
+
+	if write > 0
+		# Using recurrence to call back the original method
+		thousands = englishNumber write
+		numString = numString + thousands + " thousand"
+		if left > 0
+			# So we don't write 'two thousandfifty-one'
+			numString = numString + " "
+		end
+	end
+
 	write = left / 100 # How many hundreds left to write out?
 	left = left - write * 100 # Subtract off those hundreds.
 
@@ -79,6 +101,7 @@ puts englishNumber(100)
 puts englishNumber(101)
 puts englishNumber(234)
 puts englishNumber(3211)
+puts englishNumber(15423)
 puts englishNumber(999999)
 puts englishNumber(1000000000000)
 
